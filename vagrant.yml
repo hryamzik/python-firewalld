@@ -1,0 +1,27 @@
+- hosts: vagrant
+  become: yes
+  vars:
+      project: python-firewalld
+      major_version: 0
+      minor_version: 1
+      package_revision: 0
+      package_name: "{{ project }}_{{ major_version }}.{{ minor_version }}-{{ package_revision }}"
+  tasks:
+
+    - name: create directory for package
+      file: state=directory dest=/opt/{{ package_name }}/DEBIAN
+    
+    - name: copy files to package
+      shell: rsync -rclp --delete --chown=root:root --exclude=.DS_Store --exclude=.git /vagrant/python-firewalld/usr/ /opt/{{ package_name }}/usr/
+    
+    - name: put control
+      template: src=control.txt dest=/opt/{{ package_name }}/DEBIAN/control
+    
+    - name: buld package
+      shell: dpkg-deb --build {{ package_name }} chdir=/opt
+    
+    - name: create local build dir
+      file: dest=build state=directory
+      connection: local
+    
+    - fetch: dest=build/ src=/opt/{{ package_name }}.deb flat=yes

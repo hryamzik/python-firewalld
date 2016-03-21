@@ -1,0 +1,12 @@
+Package: {{ project }}
+Version: {{ major_version }}.{{ minor_version }}-{{ package_revision }}
+Section: python
+Priority: optional
+Architecture: all
+Depends: python-gobject (>=3.18.2-2build1), python-dbus (>=1.2.0-3), python-slip-dbus (>=0.6.1-3)
+Maintainer: Roman Belyakovsky <roman.belyakovsky@gmail.com>
+Description: python firewalld lib for python 2.7
+ These files were included to old versions
+ of firewalld that used python 2.7.
+ Now it switched to python 3 and these
+ files are missing.

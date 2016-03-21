@@ -1,0 +1,1 @@
+../../../../../share/pyshared/firewall/server/config_icmptype.py
