@@ -23,5 +23,6 @@
     - name: create local build dir
       file: dest=build state=directory
       connection: local
+      become: no
     
     - fetch: dest=build/ src=/opt/{{ package_name }}.deb flat=yes
